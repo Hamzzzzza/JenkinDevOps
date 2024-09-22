@@ -25,7 +25,7 @@ pipeline {
                     bat 'start /B node app.js'
 
                     // Run your Selenium tests
-                    bat 'npx mocha test.mjs'
+                    bat 'npx mocha test/test.mjs'
                 }
             }
         }
