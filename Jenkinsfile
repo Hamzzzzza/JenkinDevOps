@@ -6,6 +6,7 @@ pipeline {
             steps {
                 bat 'npm install'
                 bat 'npm install express'  // Ensure express is installed
+                bat 'npm install selenium-webdriver'
             }
         }
         /*
