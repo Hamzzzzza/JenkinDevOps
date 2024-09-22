@@ -8,6 +8,7 @@ pipeline {
                 bat 'npm install express'  // Ensure express is installed
             }
         }
+        /*
         stage('Build Docker Image') {
             steps {
                 script {
@@ -16,6 +17,7 @@ pipeline {
                 }
             }
         }
+        */
         stage('Run Tests') {
             steps {
                 script {
@@ -27,11 +29,13 @@ pipeline {
                 }
             }
         }
+        /*
         stage('Archive Artifact') {
             steps {
                 archiveArtifacts artifacts: 'jenkins-sample-app.tar', allowEmptyArchive: false
             }
         }
+        */
         stage('Deploy') {
             steps {
                 bat 'docker run -d -p 8080:8080 jenkins-sample-app:latest'
