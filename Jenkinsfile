@@ -15,10 +15,5 @@ pipeline {
                 }
             }
         }
-        stage('Archive Artifact') {
-            steps {
-                archiveArtifacts artifacts: 'jenkins-sample-app.tar.gz', allowEmptyArchive: false
-            }
-        }
     }
 }
