@@ -1,0 +1,23 @@
+# Ignore node_modules directory
+node_modules
+
+# Ignore log files
+*.log
+
+# Ignore Dockerfile, .dockerignore itself
+Dockerfile
+.dockerignore
+
+# Ignore git repository files
+.git
+.gitignore
+
+# Ignore test files (optional, if you don't want to include them in the image)
+test.js
+
+# Ignore environment files (optional, depending on your setup)
+.env
+
+# Ignore any local build artifacts
+dist
+build
