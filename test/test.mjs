@@ -1,5 +1,5 @@
-import chrome from 'selenium-webdriver/chrome.js'; // Explicitly use .js extension
 import { Builder, By, until } from 'selenium-webdriver';
+import chrome from 'selenium-webdriver/chrome.js';
 import { expect } from 'chai';
 
 describe('Express App Test', function() {
@@ -30,7 +30,7 @@ describe('Express App Test', function() {
 
     it('should load the homepage', async function() {
         const title = await driver.getTitle();
-        expect(title).to.equal('My Node App'); // Replace with actual title
+        expect(title).to.equal('My Node App'); // Updated to match the actual title
 
         const element = await driver.findElement(By.tagName('body'));
         expect(await element.isDisplayed()).to.be.true; // Check if the body is displayed
