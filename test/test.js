@@ -1,6 +1,6 @@
-const { Builder, By, until } = require('selenium-webdriver');
-const chrome = require('selenium-webdriver/chrome');
-const { expect } = require('chai');
+import { Builder, By } from 'selenium-webdriver';
+import { expect } from 'chai';
+import chrome from 'selenium-webdriver/chrome';
 
 describe('Express App Test', function() {
     this.timeout(30000); // Set a timeout for the test
@@ -8,7 +8,6 @@ describe('Express App Test', function() {
     let driver;
 
     before(async function() {
-        // Configure Chrome to run headlessly
         driver = new Builder()
             .forBrowser('chrome')
             .setChromeOptions(new chrome.Options().headless()) // Headless Chrome

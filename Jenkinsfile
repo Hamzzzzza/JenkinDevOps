@@ -5,6 +5,7 @@ pipeline {
         stage('Build') {
             steps {
                 bat 'npm install'
+                bat 'npm install express'  // Ensure express is installed
             }
         }
         stage('Build Docker Image') {
@@ -22,7 +23,7 @@ pipeline {
                     bat 'start /B node app.js'
 
                     // Run your Selenium tests
-                    bat 'npx mocha test.js'
+                    bat 'npx mocha test.mjs'
                 }
             }
         }
@@ -31,6 +32,10 @@ pipeline {
                 archiveArtifacts artifacts: 'jenkins-sample-app.tar', allowEmptyArchive: false
             }
         }
-        
+        stage('Deploy') {
+            steps {
+                bat 'docker run -d -p 8080:8080 jenkins-sample-app:latest'
+            }
+        }
     }
 }
