@@ -10,14 +10,14 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    bat 'docker build -t your-node-app:latest .'
-                    bat 'docker save your-node-app:latest > your-node-app.tar'
+                    bat 'docker build -t jenkins-sample-app:latest .'
+                    bat 'docker save jenkins-sample-app:latest > jenkins-sample-app.tar'
                 }
             }
         }
         stage('Archive Artifact') {
             steps {
-                archiveArtifacts artifacts: 'your-node-app.tar.gz', allowEmptyArchive: false
+                archiveArtifacts artifacts: 'jenkins-sample-app.tar.gz', allowEmptyArchive: false
             }
         }
     }
