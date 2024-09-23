@@ -41,7 +41,7 @@ pipeline {
                     bat 'C:\\cc-test-reporter.exe before-build'
                     
                     // Re-run the tests with coverage to ensure the coverage is reported
-                    bat 'npx nyc --reporter=lcov mocha test/test.mjs'
+                    bat 'npx nyc --reporter=lcov --report-dir coverage mocha test/test.mjs'
 
                     // Format the lcov report for CodeClimate
                     bat 'C:\\cc-test-reporter.exe format-coverage --input-type lcov --output coverage/codeclimate.json'
