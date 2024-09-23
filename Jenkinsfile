@@ -43,7 +43,7 @@ pipeline {
                     bat 'npx nyc --reporter=lcov mocha test/test.mjs'
 
                     // Send the report to CodeClimate
-                    bat 'cc-test-reporter.exe after-build --exit-code %ERRORLEVEL%'
+                    bat 'C:\\cc-test-reporter.exe --exit-code %ERRORLEVEL%'
                 }
             }
         }
