@@ -37,7 +37,7 @@ pipeline {
             steps {
                 script {
                     // Before running the tests, we tell CodeClimate to prepare for coverage report
-                    bat 'cc-test-reporter.exe before-build'
+                    bat 'C:\\cc-test-reporter.exe before-build'
                     
                     // Re-run the tests with coverage to ensure the coverage is reported
                     bat 'npx nyc --reporter=lcov mocha test/test.mjs'
