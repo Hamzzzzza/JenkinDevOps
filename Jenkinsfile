@@ -63,6 +63,10 @@ pipeline {
         */
         stage('Deploy') {
             steps {
+                // Stop and remove any running container using the same port or image
+                bat 'docker ps -q --filter "ancestor=jenkins-sample-app:latest" | xargs -r docker stop'
+                bat 'docker ps -a -q --filter "ancestor=jenkins-sample-app:latest" | xargs -r docker rm'
+                
                 bat 'docker run -d -p 8082:8080 jenkins-sample-app:latest' // Use 8082 externally
             }
         }
