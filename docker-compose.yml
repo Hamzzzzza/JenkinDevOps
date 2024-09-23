@@ -7,7 +7,7 @@ services:
       dockerfile: Dockerfile  # Specify the Dockerfile (if needed)
     image: jenkins-sample-app:latest  # Build the image using your Dockerfile
     ports:
-      - "8081:3000"  # Map external port 8081 to your app's internal port 3000
+      - "0:3000"  # Map external port 8081 to your app's internal port 3000
     environment:
       - NODE_ENV=development  # Pass environment variables if necessary
     volumes:
