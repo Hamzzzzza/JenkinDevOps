@@ -34,15 +34,6 @@ pipeline {
                 }
             }
         }
-        stage('Check Coverage Directory') {
-            steps {
-                script {
-                    bat 'mkdir coverage'
-                    bat 'echo Checking directory...'
-                    bat 'dir coverage'
-                }
-            }
-        }
         stage('Code Quality Analysis') {
             steps {
                 script {
