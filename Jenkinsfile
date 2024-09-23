@@ -1,6 +1,9 @@
 pipeline {
     agent any
 
+    environment {
+        CC_TEST_REPORTER_ID = '769879dedf982c38dc2b6135bea09a322ae28f38fd34032759ea3d7a8bda88ec'  // Replace with your actual CodeClimate Reporter ID
+    }
     stages {
         stage('Build') {
             steps {
@@ -30,6 +33,21 @@ pipeline {
                 }
             }
         }
+        stage('Code Quality Analysis') {
+            steps {
+                script {
+                    // Before running the tests, we tell CodeClimate to prepare for coverage report
+                    bat 'cc-test-reporter.exe before-build'
+                    
+                    // Re-run the tests with coverage to ensure the coverage is reported
+                    bat 'npx nyc --reporter=lcov mocha test/test.mjs'
+
+                    // Send the report to CodeClimate
+                    bat 'cc-test-reporter.exe after-build --exit-code %ERRORLEVEL%'
+                }
+            }
+        }
+
         /*
         stage('Archive Artifact') {
             steps {
