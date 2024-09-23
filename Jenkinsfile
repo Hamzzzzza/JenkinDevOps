@@ -42,9 +42,14 @@ pipeline {
                     
                     // Re-run the tests with coverage to ensure the coverage is reported
                     bat 'npx nyc --reporter=lcov mocha test/test.mjs'
+                    
+                    // Format the lcov report for CodeClimate
+                    bat 'cc-test-reporter format-coverage --input-type lcov --output coverage/codeclimate.json'
 
+                    // Upload the formatted coverage report to CodeClimate
+                    bat 'cc-test-reporter upload-coverage --input coverage/codeclimate.json'
                     // Send the report to CodeClimate
-                    bat 'C:\\cc-test-reporter.exe after-build'
+                    // bat 'C:\\cc-test-reporter.exe after-build'
                 }
             }
         }
