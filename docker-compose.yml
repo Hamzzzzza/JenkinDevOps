@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  webapp:
+    build:
+      context: .  # Use the current directory as the build context
+      dockerfile: Dockerfile  # Specify the Dockerfile (if needed)
+    image: jenkins-sample-app:latest  # Build the image using your Dockerfile
+    ports:
+      - "8081:3000"  # Map external port 8081 to your app's internal port 3000
+    environment:
+      - NODE_ENV=development  # Pass environment variables if necessary
+    volumes:
+      - .:/usr/src/app  # Mount the project directory into the container
+    restart: always  # Restart the container automatically if it crashes

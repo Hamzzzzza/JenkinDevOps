@@ -63,11 +63,13 @@ pipeline {
         */
         stage('Deploy') {
             steps {
-                // Stop any running container that might be using the port
-                bat 'docker ps -q --filter "ancestor=jenkins-sample-app:latest" | for /F %i in (\'findstr /r .\') do docker stop %i'
-                bat 'docker ps -a -q --filter "ancestor=jenkins-sample-app:latest" | for /F %i in (\'findstr /r .\') do docker rm %i'
+                script {
+                    // Stop any running services before starting the new ones
+                    bat 'docker-compose down'
 
-                bat 'docker run -d -p 8083:8080 jenkins-sample-app:latest' // Use 8082 externally
+                    // Build and start the services in detached mode
+                    bat 'docker-compose up -d --build'
+                }
             }
         }
     }
