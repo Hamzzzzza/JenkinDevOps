@@ -64,22 +64,13 @@ pipeline {
         stage('Deploy') {
             steps {
                 script {
-                     // Stop and remove any existing container using the same port
-                    bat '''
-                        for /F "tokens=*" %%i in ('docker ps -q --filter "ancestor=jenkins-sample-app:latest"') do (
-                            docker stop %%i
-                            docker rm %%i
-                        )
-                    '''
-
-                    // Use docker-compose to bring the service back up
-                    bat 'docker-compose up -d --build'
+                    bat 'docker-compose down --rmi all'
 
                     // Stop any running services before starting the new ones
-                    //bat 'docker-compose down'
+                    bat 'docker-compose down'
 
                     // Build and start the services in detached mode
-                    //bat 'docker-compose up -d --build'
+                    bat 'docker-compose up -d --build'
                 }
             }
         }
