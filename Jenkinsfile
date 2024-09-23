@@ -64,7 +64,6 @@ pipeline {
         stage('Deploy') {
             steps {
                 script {
-                    bat 'docker-compose down --rmi all'
 
                     // Stop any running services before starting the new ones
                     bat 'docker-compose down'
