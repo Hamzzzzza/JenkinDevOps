@@ -63,7 +63,7 @@ pipeline {
         */
         stage('Deploy') {
             steps {
-                bat 'docker run -d -p 8081:8080 jenkins-sample-app:latest' // Use 8081 externally
+                bat 'docker run -d -p 8082:8080 jenkins-sample-app:latest' // Use 8082 externally
             }
         }
     }
