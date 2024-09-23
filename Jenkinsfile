@@ -67,7 +67,7 @@ pipeline {
                 bat 'docker ps -q --filter "ancestor=jenkins-sample-app:latest" | for /F %i in (\'findstr /r .\') do docker stop %i'
                 bat 'docker ps -a -q --filter "ancestor=jenkins-sample-app:latest" | for /F %i in (\'findstr /r .\') do docker rm %i'
 
-                bat 'docker run -d -p 8082:8080 jenkins-sample-app:latest' // Use 8082 externally
+                bat 'docker run -d -p 8083:8080 jenkins-sample-app:latest' // Use 8082 externally
             }
         }
     }
