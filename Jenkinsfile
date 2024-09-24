@@ -80,22 +80,9 @@ pipeline {
         stage('Release to EC2') {
             steps {
                 script {
-                    // Transfer files to EC2 instance using SCP
-                    sshagent(credentials: [SSH_CREDENTIALS]) {
-                        sh """
-                        scp -o StrictHostKeyChecking=no -r * ${EC2_USER}@${EC2_IP}:${APP_PATH}
-                        """
-                    }
-
-                    // SSH into EC2 instance, install dependencies, and restart the app
-                    sshagent(credentials: [SSH_CREDENTIALS]) {
-                        sh """
-                        ssh -o StrictHostKeyChecking=no ${EC2_USER}@${EC2_IP} << EOF
-                            cd ${APP_PATH}
-                            npm install
-                            pm2 restart app.js || pm2 start app.js
-                        EOF
-                        """
+                    sshagent(['ec2-ssh-key']) {
+                        sh 'scp -r . ec2-user@54.224.71.251:/home/ec2-user/NodeApp/'
+                        sh 'ssh ec2-user@54.224.71.251 "cd /home/ec2-user/NodeApp && npm install && pm2 restart all"'
                     }
                 }
             }
