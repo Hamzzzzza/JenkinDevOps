@@ -3,6 +3,10 @@ pipeline {
 
     environment {
         CC_TEST_REPORTER_ID = '769879dedf982c38dc2b6135bea09a322ae28f38fd34032759ea3d7a8bda88ec'  // Replace with your actual CodeClimate Reporter ID
+        EC2_IP = '54.224.71.251/' // Replace with your EC2 instance's IP address
+        EC2_USER = 'ec2-user' // Or the appropriate user for your EC2 instance
+        APP_PATH = '/home/ec2-user/NodeApp' // Path where the app is stored on EC2
+        SSH_CREDENTIALS = 'EC2Key' // Replace with your Jenkins credential ID
     }
     stages {
         stage('Build') {
@@ -72,6 +76,34 @@ pipeline {
                     bat 'docker-compose up -d --build'
                 }
             }
+        }
+        stage('Release to EC2') {
+            steps {
+                script {
+                    // Transfer files to EC2 instance using SCP
+                    sshagent(credentials: [SSH_CREDENTIALS]) {
+                        sh """
+                        scp -o StrictHostKeyChecking=no -r * ${EC2_USER}@${EC2_IP}:${APP_PATH}
+                        """
+                    }
+
+                    // SSH into EC2 instance, install dependencies, and restart the app
+                    sshagent(credentials: [SSH_CREDENTIALS]) {
+                        sh """
+                        ssh -o StrictHostKeyChecking=no ${EC2_USER}@${EC2_IP} << EOF
+                            cd ${APP_PATH}
+                            npm install
+                            pm2 restart app.js || pm2 start app.js
+                        EOF
+                        """
+                    }
+                }
+            }
+        }
+    }
+    post {
+        always {
+            cleanWs() // Clean up workspace after build
         }
     }
 }
