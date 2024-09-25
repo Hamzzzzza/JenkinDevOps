@@ -25,10 +25,10 @@ pipeline {
         stage('Run Tests') {
             steps {
                 script {
-                    // Start your app
+                    // Start my app
                     bat 'start /B node app.js'
 
-                    // Run your Selenium tests
+                    // Run the Selenium tests
                     bat 'npx mocha test/test.mjs'
                 }
             }
