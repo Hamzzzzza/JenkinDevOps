@@ -83,19 +83,10 @@ pipeline {
                 }
             }
         }
-        stage('Notify New Relic') {
+        stage('Monitor') {
             steps {
-                script {
-                    withCredentials([string(credentialsId: 'newrelic-api-key', variable: 'NEW_RELIC_API_KEY')]) {
-                        def response = sh(script: """
-                            curl -X POST 'https://api.newrelic.com/v2/applications/NDczNDIwMnxBUE18QVBQTElDQVRJT058NTkwMTMzMDkw/deployments.json' \
-                            -H 'X-Api-Key:${NEW_RELIC_API_KEY}' \
-                            -d 'deployment[description]=Deploying Jenkins app&deployment[user]=jenkins'
-                        """, returnStdout: true).trim()
-                        echo "New Relic Response: ${response}"
-                    }
-                }
+                echo 'Monitoring application with New Relic...'
+                // Here, i used New Relic’s and simply starting the app as it already integrates New Relic
             }
-        }
     }
 }
