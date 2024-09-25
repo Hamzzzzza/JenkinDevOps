@@ -2,14 +2,14 @@ pipeline {
     agent any
 
     environment {
-        CC_TEST_REPORTER_ID = '769879dedf982c38dc2b6135bea09a322ae28f38fd34032759ea3d7a8bda88ec'  // Replace with your actual CodeClimate Reporter ID
+        CC_TEST_REPORTER_ID = '769879dedf982c38dc2b6135bea09a322ae28f38fd34032759ea3d7a8bda88ec'
         AWS_DEFAULT_REGION = 'us-east-1'
     }
     stages {
         stage('Build') {
             steps {
                 bat 'npm install'
-                bat 'npm install express'  // Ensure express is installed
+                bat 'npm install express'
                 bat 'npm install selenium-webdriver'
                 bat 'npm install nyc --save-dev'
             }
@@ -50,7 +50,7 @@ pipeline {
                     // Upload the formatted coverage report to CodeClimate
                     bat 'C:\\cc-test-reporter.exe upload-coverage --input coverage/codeclimate.json'
                     // Send the report to CodeClimate
-                    // bat 'C:\\cc-test-reporter.exe after-build'
+                    bat 'C:\\cc-test-reporter.exe after-build'
                 }
             }
         }
