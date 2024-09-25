@@ -88,5 +88,6 @@ pipeline {
                 echo 'Monitoring application with New Relic...'
                 // Here, i used New Relic’s and simply starting the app as it already integrates New Relic
             }
+        }
     }
 }
