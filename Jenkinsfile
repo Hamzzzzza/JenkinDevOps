@@ -81,7 +81,7 @@ pipeline {
             steps {
                 script {
                     script {
-                        sh '''
+                        bat '''
                         scp -i E:/Deakin/DevOpsKey.pem -o StrictHostKeyChecking=no -r * ec2-user@54.224.71.251:~/node-app/
                         ssh -i E:/Deakin/DevOpsKey.pem -o StrictHostKeyChecking=no ec2-user@54.224.71.251 "cd ~/node-app && npm install && pm2 restart all"
                         '''
