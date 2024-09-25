@@ -3,10 +3,6 @@ pipeline {
 
     environment {
         CC_TEST_REPORTER_ID = '769879dedf982c38dc2b6135bea09a322ae28f38fd34032759ea3d7a8bda88ec'  // Replace with your actual CodeClimate Reporter ID
-        EC2_IP = '54.224.71.251/' // Replace with your EC2 instance's IP address
-        EC2_USER = 'ec2-user' // Or the appropriate user for your EC2 instance
-        APP_PATH = '/home/ec2-user/NodeApp' // Path where the app is stored on EC2
-        SSH_CREDENTIALS = 'EC2Key' // Replace with your Jenkins credential ID
     }
     stages {
         stage('Build') {
