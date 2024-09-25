@@ -80,12 +80,11 @@ pipeline {
         stage('Release to EC2') {
             steps {
                 script {
-                    sshagent([env.SSH_CREDENTIALS]) {
-                        sh """
-                        ssh -o StrictHostKeyChecking=no ${env.EC2_USER}@${env.EC2_IP} "mkdir -p ${env.APP_PATH}"
-                        scp -o StrictHostKeyChecking=no -r * ${env.EC2_USER}@${env.EC2_IP}:${env.APP_PATH}/
-                        ssh -o StrictHostKeyChecking=no ${env.EC2_USER}@${env.EC2_IP} "cd ${env.APP_PATH} && npm install && pm2 restart all"
-                        """
+                    script {
+                        sh '''
+                        scp -i E:/Deakin/DevOpsKey.pem -o StrictHostKeyChecking=no -r * ec2-user@54.224.71.251:~/node-app/
+                        ssh -i E:/Deakin/DevOpsKey.pem -o StrictHostKeyChecking=no ec2-user@54.224.71.251 "cd ~/node-app && npm install && pm2 restart all"
+                        '''
                     }
                 }
             }
