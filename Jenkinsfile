@@ -77,7 +77,7 @@ pipeline {
             steps {
                 // Promote the application to a production environment
                 // Example: Deploying to AWS using CodeDeploy
-                bat 'aws deploy create-deployment --application-name NodeAppDeploy --deployment-group-name NodeAppDeploymentGroup --s3-location bucket=my-node-app-bucket-2,bundleType=zip,key=JenkinsDevOpsApp.zip'
+                bat 'aws deploy create-deployment --application-name NodeAppDeploy --deployment-group-name NodeAppDeploymentGroup --s3-location bucket=my-node-app-bucket-2,bundleType=zip,key=JenkinsDevOpsApp.zip --region us-east-1'
             }
         }
         /* stage('Release to EC2') {
