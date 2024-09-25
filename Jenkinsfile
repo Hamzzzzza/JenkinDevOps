@@ -80,7 +80,7 @@ pipeline {
         stage('Release to EC2') {
             steps {
                 script {
-                    sshagent(['ec2-ssh-key']) {
+                    sshagent(['EC2Key']) {
                         sh 'scp -r . ec2-user@54.224.71.251:/home/ec2-user/NodeApp/'
                         sh 'ssh ec2-user@54.224.71.251 "cd /home/ec2-user/NodeApp && npm install && pm2 restart all"'
                     }
