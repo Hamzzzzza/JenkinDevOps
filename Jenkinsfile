@@ -83,5 +83,19 @@ pipeline {
                 }
             }
         }
+        stage('Monitoring with New Relic') {
+            steps {
+                script {
+                    newRelicDeployment(
+                        applicationId: 'NDczNDIwMnxBUE18QVBQTElDQVRJT058NTkwMTMzMDkw',
+                        apiKey: 'NRAK-G95OW67QBPAI5QCVH89EHE5F12V',
+                        description: 'Successful deployment of the app',
+                        revision: '1.0',
+                        changelog: 'Initial successful build',
+                        user: 'jenkins'
+                    )
+                }
+            }
+        }
     }
 }
