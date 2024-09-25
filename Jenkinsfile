@@ -82,7 +82,7 @@ pipeline {
                 script {
                     bat '''
                     ssh -i E:/Deakin/DevOpsKey.pem -o StrictHostKeyChecking=no ec2-user@54.224.71.251 "cd ~/ && git clone https://github.com/Hamzzzzza/JenkinDevOps.git || (cd ~/JenkinDevOps && git pull)"
-                    ssh -i E:/Deakin/DevOpsKey.pem -o StrictHostKeyChecking=no ec2-user@54.224.71.251 "npm install -g pm2 && cd ~/JenkinDevOps && npm install && pm2 restart all"
+                    ssh -i E:/Deakin/DevOpsKey.pem -o StrictHostKeyChecking=no ec2-user@54.224.71.251 "sudo npm install -g pm2 && cd ~/JenkinDevOps && npm install && pm2 restart all"
                     '''
                 }
             }
