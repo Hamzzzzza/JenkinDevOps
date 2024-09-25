@@ -86,14 +86,16 @@ pipeline {
         stage('Monitoring with New Relic') {
             steps {
                 script {
-                    newRelicDeployment(
-                        applicationId: 'NDczNDIwMnxBUE18QVBQTElDQVRJT058NTkwMTMzMDkw',
-                        apiKey: 'NRAK-G95OW67QBPAI5QCVH89EHE5F12V',
-                        description: 'Successful deployment of the app',
-                        revision: '1.0',
-                        changelog: 'Initial successful build',
-                        user: 'jenkins'
-                    )
+                    withCredentials([string(credentialsId: 'newrelic-api-key', variable: 'NEW_RELIC_API_KEY')]) {
+                        newRelicDeployment(
+                            applicationId: 'NDczNDIwMnxBUE18QVBQTElDQVRJT058NTkwMTMzMDkw',
+                            apiKey: "${NEW_RELIC_API_KEY}",
+                            description: 'Successful deployment of the app',
+                            revision: '1.0',
+                            changelog: 'Initial successful build',
+                            user: 'jenkins'
+                        )
+                    }
                 }
             }
         }
