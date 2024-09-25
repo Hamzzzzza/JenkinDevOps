@@ -14,7 +14,6 @@ pipeline {
                 bat 'npm install nyc --save-dev'
             }
         }
-        /*
         stage('Build Docker Image') {
             steps {
                 script {
@@ -23,7 +22,6 @@ pipeline {
                 }
             }
         }
-        */
         stage('Run Tests') {
             steps {
                 script {
@@ -54,14 +52,11 @@ pipeline {
                 }
             }
         }
-
-        /*
         stage('Archive Artifact') {
             steps {
                 archiveArtifacts artifacts: 'jenkins-sample-app.tar', allowEmptyArchive: false
             }
         }
-        */
         stage('Deploy') {
             steps {
                 script {
