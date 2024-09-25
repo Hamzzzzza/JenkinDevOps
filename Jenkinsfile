@@ -83,18 +83,16 @@ pipeline {
                 }
             }
         }
-        stage('Monitoring with New Relic') {
+        stage('Notify New Relic') {
             steps {
                 script {
                     withCredentials([string(credentialsId: 'newrelic-api-key', variable: 'NEW_RELIC_API_KEY')]) {
-                        newRelicDeployment(
-                            applicationId: 'NDczNDIwMnxBUE18QVBQTElDQVRJT058NTkwMTMzMDkw',
-                            apiKey: "${NEW_RELIC_API_KEY}",
-                            description: 'Successful deployment of the app',
-                            revision: '1.0',
-                            changelog: 'Initial successful build',
-                            user: 'jenkins'
-                        )
+                        def response = sh(script: """
+                            curl -X POST 'https://api.newrelic.com/v2/applications/NDczNDIwMnxBUE18QVBQTElDQVRJT058NTkwMTMzMDkw/deployments.json' \
+                            -H 'X-Api-Key:${NEW_RELIC_API_KEY}' \
+                            -d 'deployment[description]=Deploying Jenkins app&deployment[user]=jenkins'
+                        """, returnStdout: true).trim()
+                        echo "New Relic Response: ${response}"
                     }
                 }
             }
