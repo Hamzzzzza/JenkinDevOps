@@ -81,8 +81,11 @@ pipeline {
             steps {
                 script {
                     sshagent(['EC2Key']) {
-                        sh 'scp -r . ec2-user@54.224.71.251:/home/ec2-user/NodeApp/'
-                        sh 'ssh ec2-user@54.224.71.251 "cd /home/ec2-user/NodeApp && npm install && pm2 restart all"'
+                        // Transfer files to EC2 instance
+                        sh 'scp -i E:/DevOpsKey.pem -o StrictHostKeyChecking=no -r . ec2-user@54.224.71.251:/home/ec2-user/NodeApp/'
+
+                        // Run commands on EC2 instance
+                        sh 'ssh -i E:/DevOpsKey.pem -o StrictHostKeyChecking=no ec2-user@54.224.71.251 "cd /home/ec2-user/NodeApp && npm install && pm2 restart all"'
                     }
                 }
             }
