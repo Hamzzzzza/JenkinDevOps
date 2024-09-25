@@ -3,6 +3,7 @@ pipeline {
 
     environment {
         CC_TEST_REPORTER_ID = '769879dedf982c38dc2b6135bea09a322ae28f38fd34032759ea3d7a8bda88ec'  // Replace with your actual CodeClimate Reporter ID
+        AWS_DEFAULT_REGION = 'us-east-1'
     }
     stages {
         stage('Build') {
@@ -75,9 +76,11 @@ pipeline {
         }
         stage('Release') {
             steps {
-                // Promote the application to a production environment
-                // Example: Deploying to AWS using CodeDeploy
-                bat 'aws deploy create-deployment --application-name NodeAppDeploy --deployment-group-name NodeAppDeploymentGroup --s3-location bucket=my-node-app-bucket-2,bundleType=zip,key=JenkinsDevOpsApp.zip --region us-east-1'
+                withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-credentials']]) {
+                    script {
+                        bat 'aws deploy create-deployment --application-name NodeAppDeploy --deployment-group-name NodeAppDeploymentGroup --s3-location bucket=my-node-app-bucket-2,bundleType=zip,key=JenkinsDevOpsApp.zip --region us-east-1'
+                    }
+                }
             }
         }
         /* stage('Release to EC2') {
